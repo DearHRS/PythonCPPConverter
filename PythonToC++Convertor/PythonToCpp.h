@@ -22,11 +22,11 @@ private:
 	std::vector <Position> vectorCommentsandDocumentedStrings;
 	std::vector <Position> vectorVariables;
 	std::vector <Position> vectorLists;
-	std::vector <Position> vectorDictionaries;
 	std::vector <Position> vectorStatements;
+	std::vector <Position> vectorFunctions;
 
 	//to save time these vectors are not going to be implemented
-	std::vector <Position> vectorFunctions;
+	std::vector <Position> vectorDictionaries;
 	std::vector <Position> vectorTuples;
 	std::vector <Position> vectorImports;
 	std::vector <Position> vectorClasses;
