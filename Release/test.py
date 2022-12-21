@@ -1,8 +1,7 @@
-print("helloWorldхехе")
-	hmmm	
+print("helloWorld") ok hello
+nothing
+        
 
-
-test
-\t\n
-\ttest
-more test
+\n \t
+here
+for here gone
