@@ -11,7 +11,7 @@
 void Setifstream(std::ifstream& ifstreamGiven, std::wstring invitation);
 
 //function that returns all the lines from python file to a vector
-void GetPythonLines(std::vector<std::string>& pythonLinesStorage);
+void GetPythonLines(std::vector<std::vector<std::string>>& pythonLinesStorage);
 
 //function that creates c++ file
 void CreateCppFile(std::wstring name, std::vector<std::string>& cppLinesStorage);
@@ -26,18 +26,18 @@ int main()
 
     //main loop
     while (true) {
-        std::vector<std::string> pythonLinesStorage;    //storage for python lines
+        std::vector<std::vector<std::string>> pythonLinesStorage;    //storage for python lines
         std::vector<std::string> cppLinesStorage;       //storage for c++ lines
         PythonToCpp pythonToCpp = PythonToCpp();
 
-
         GetPythonLines(pythonLinesStorage);
-        std::wcout << L"\n\n";
-        for (unsigned int i = 0; i < pythonLinesStorage.size(); i++) {
-            std::wcout << std::wstring(pythonLinesStorage[i].begin(), pythonLinesStorage[i].end()) << '\n';
-        }
-        std::wcout << L"\n\n";
 
+        for (unsigned int i = 0; i < pythonLinesStorage.size(); i++) {
+            for (unsigned int j = 0; j < pythonLinesStorage[i].size(); j++) {
+                std::wcout << " " << std::wstring(pythonLinesStorage[i][j].begin(), pythonLinesStorage[i][j].end()) << " ";
+            }
+            std::wcout << std::endl;
+        }
 
         /*//checking if such file can be evaluated by this convertor
         if (pythonToCpp.IsConvertable(pythonLinesStorage)) {
@@ -97,18 +97,46 @@ void Setifstream(std::ifstream& ifstreamGiven, std::wstring invitation) {
 
 
 //function that returns all the lines from python file to a vector
-void GetPythonLines(std::vector<std::string>& pythonLinesStorage) {
+void GetPythonLines(std::vector<std::vector<std::string>>& pythonLinesStorage) {
     std::ifstream pythonFile;   //python input object
 
     //getting python file
     Setifstream(pythonFile, L"Введите имя файла python: ");
 
-    //storing lines into given vector
-    std::string pythonFileLines;
-    while (std::getline(pythonFile, pythonFileLines)) {
-        pythonLinesStorage.push_back(pythonFileLines);
-    }
+    std::string pythonFileLine[] = {"", ""};       //first index gets line from file; second index break that line in strings
 
+    //storing lines into given vector
+    while (std::getline(pythonFile, pythonFileLine[0])) {
+        //temporary vector to put into python storage vector
+        std::vector<std::string> tempVector;
+
+        //breaking lines by spaces
+        for (unsigned int i = 0; i < pythonFileLine[0].size(); i++) {
+            if (pythonFileLine[0][i] == ' ') {
+                tempVector.push_back(pythonFileLine[1]);
+                pythonFileLine[1] = "";
+            }
+            else {
+                pythonFileLine[1] += pythonFileLine[0][i];
+            }
+        }
+
+        //adding last broken piece if line didn't end in space
+        if (pythonFileLine[0][pythonFileLine[0].size() - 1] != ' ') {
+            //if last line was empty
+            if (pythonFileLine[0].size() == 0) {
+                tempVector.push_back("*newline*");
+            }
+            else {
+                tempVector.push_back(pythonFileLine[1]);
+            }            
+        }        
+        pythonFileLine[1] = "";
+
+        //storing temp vector into pythonLinesStorage vector
+        pythonLinesStorage.push_back(tempVector);
+    }
+    std::wcout << "\n\n";
     pythonFile.close();
 }
 
