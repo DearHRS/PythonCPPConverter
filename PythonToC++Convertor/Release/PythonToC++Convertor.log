@@ -1,8 +1,0 @@
-﻿  PythonToCpp.cpp
-  main.cpp
-  Generating code
-  165 of 464 functions (35.6%) were compiled, the rest were copied from previous compilation.
-    12 functions were new in current compilation
-    48 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  PythonToC++Convertor.vcxproj -> D:\Dummy folder\college\semester4.first\СистемноеПрограмирование\Course work\PythonToC++Convertor\Release\PythonToC++Convertor.exe
