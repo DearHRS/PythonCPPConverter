@@ -1,9 +1,11 @@
 # PythonCPPConverter
 Attempt to make Python to C++
 
-so far it can read python file and create cpp file but no translation take place
+so far:
+  it can read python file and create cpp file but no translation take place
+  deciphering python file implmented
 
-working on deciphering python file and working on translating statements with no hierarchy
+working on translating statements with no hierarchy
 
 
 
