@@ -119,8 +119,10 @@ void GetPythonLines(std::vector<std::vector<std::string>>& pythonLinesStorage, s
         //breaking lines by spaces
         for (unsigned int i = 0; i < pythonFileLine[0].size(); i++) {
             if (pythonFileLine[0][i] == ' ') {
-                tempVector.push_back(pythonFileLine[1]);
-                pythonFileLine[1] = "";
+                if(pythonFileLine[1] != ""){
+                    tempVector.push_back(pythonFileLine[1]);
+                    pythonFileLine[1] = "";
+                }                
             }
             else {
                 pythonFileLine[1] += pythonFileLine[0][i];
